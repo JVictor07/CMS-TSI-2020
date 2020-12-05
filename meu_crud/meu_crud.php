@@ -46,6 +46,37 @@ add_menu_page('Configurações do Meu Plug-in',
 function abre_configuracoes(){
   global $wpdb;
 
+  if ( isset($_GET['editar_form']) $$ !isset($_POST['alterar']) ) {
+    $id = preg_replace('/\D/', '', $_GET['editar_form']);
+
+    $contato = $wpdb->get_results("SELECT 
+                          nome, whatsapp 
+                        FROM 
+                          {$wpdb->prefix}agenda 
+                        WHERE
+                          id = $id");
+
+    require 'form_editar_tpl.php';
+    exit();
+  }
+
+  if ( isset($_POST['alterar']) ) {
+    if($wpdb->query(
+      $wpdb->prepare("UPDATE 
+                        {$wpdb->prefix}agenda
+                      SET
+                        nome = %s, whatsapp = %d)
+                      WHERE
+                        id = %d
+      ", $_POST['nome'], $_POST['whatsapp'], $_POST['id']
+      )
+    )){
+      $msg_alterar = 'Registro alterado com sucesso !';
+    } else {
+      $erro_alterar = 'Falha ao tentar alterar o registro !';
+    }
+  }
+
   if ( isset($_GET['apagar']) ) {
     $id = preg_replace('/\D/', '', $_GET['apagar']);
 

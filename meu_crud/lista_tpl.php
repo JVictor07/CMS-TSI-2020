@@ -4,10 +4,22 @@
   <br><br>
 
   <form method="post">
+
+    <?php
+      if ( isset($msg_alterar) ) {
+        echo "<font color='green'>$msg_alterar</font>";
+      }
+
+      if ( isset($erro_alterar) ) {
+        echo "<font color='red'>$erro_alterar</font>";
+      }
+    ?>
+
     <table border="1" width="50%">
       <tr> 
         <td>Nome</td>
         <td>Whatsapp</td>
+        <td></td>
         <td></td>
       </tr>
       <?php
@@ -18,6 +30,9 @@
               <td>{$value->whatsapp}</td>
               <td>
                 <a href='?page={$_GET['page']}&apagar={$value->id}'>Apagar</a>
+              </td>
+              <td>
+                <a href='?page={$_GET['page']}&editar_form={$value->id}'>Editar</a>
               </td>
             </tr>
           ";
@@ -31,6 +46,7 @@
         <td>
           <input type="text" name="whatsapp" placeholder="Whatsapp" >
         </td>
+        <td></td>
         <td>
           <?php submit_button('Gravar'); ?>
         </td>
