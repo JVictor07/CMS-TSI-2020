@@ -46,7 +46,7 @@ add_menu_page('Configurações do Meu Plug-in',
 function abre_configuracoes(){
   global $wpdb;
 
-  if ( isset($_GET['editar_form']) $$ !isset($_POST['alterar']) ) {
+  if ( isset($_GET['editar_form']) && !isset($_POST['alterar']) ) {
     $id = preg_replace('/\D/', '', $_GET['editar_form']);
 
     $contato = $wpdb->get_results("SELECT 
